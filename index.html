@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Egg Cooking Timer</title>
+  <title>Anime Egg Cooking Timer</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
   <style>
     body {
@@ -81,12 +81,15 @@
     .click-me:active {
       transform: scale(0.9);
     }
+    /* Smooth Fade-In and Fade-Out for Click Message */
     #click-message {
       font-size: 20px;
       font-weight: bold;
       color: #ff5733;
       margin-top: 10px;
-      display: none;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.3s ease-in-out;
     }
     @media (max-width: 600px) {
       .egg-button {
@@ -127,7 +130,7 @@
   <p id="status">Click an egg to start the timer.</p>
   <p id="timer">00:00</p>
 
-  <button class="click-me" onclick="toggleMessage()">Click Me, I Dare you</button>
+  <button class="click-me" onclick="toggleMessage()">Click Me</button>
   <p id="click-message">Ahha! I made you click! 😆</p>
 </div>
 
@@ -164,7 +167,16 @@
 
   function toggleMessage() {
     const message = document.getElementById("click-message");
-    message.style.display = message.style.display === "none" ? "block" : "none";
+
+    if (message.style.visibility === "hidden" || message.style.visibility === "") {
+      message.style.visibility = "visible";
+      message.style.opacity = "1";
+    } else {
+      message.style.opacity = "0";
+      setTimeout(() => {
+        message.style.visibility = "hidden";
+      }, 300); // Matches the transition duration
+    }
   }
 </script>
 

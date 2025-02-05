@@ -24,13 +24,17 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 20px;
+    }
+    .egg-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .egg-button {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 10px;
       width: 70px;
       height: 90px;
       border-radius: 50% 50% 45% 45%;
@@ -48,6 +52,12 @@
     .egg-button:active {
       transform: scale(0.9);
       background: linear-gradient(to top, #ffb300, #ffe680);
+    }
+    .egg-label {
+      margin-top: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
     }
     .animate {
       animation: bounce 0.6s ease;
@@ -97,6 +107,9 @@
         height: 80px;
         font-size: 24px;
       }
+      .egg-label {
+        font-size: 12px;
+      }
       #timer {
         font-size: 20px;
       }
@@ -113,17 +126,29 @@
   <p>Click an anime egg to start the timer</p>
 
   <div class="egg-buttons">
-    <div class="egg-button" onclick="startTimer(6 * 60, 'Hard Boil', this)" title="Hard Boil (6 min)">
-      <i class="fas fa-egg"></i>
+    <div class="egg-item">
+      <div class="egg-button" onclick="startTimer(6 * 60, 'Hard Boil', this)" title="Hard Boil (6 min)">
+        <i class="fas fa-egg"></i>
+      </div>
+      <span class="egg-label">Hard Boil</span>
     </div>
-    <div class="egg-button" onclick="startTimer(4 * 60, 'Soft Boil', this)" title="Soft Boil (4 min)">
-      <i class="fas fa-spoon"></i>
+    <div class="egg-item">
+      <div class="egg-button" onclick="startTimer(4 * 60, 'Soft Boil', this)" title="Soft Boil (4 min)">
+        <i class="fas fa-spoon"></i>
+      </div>
+      <span class="egg-label">Soft Boil</span>
     </div>
-    <div class="egg-button" onclick="startTimer(3 * 60, 'Poached Egg', this)" title="Poached Egg (3 min)">
-      <i class="fas fa-water"></i>
+    <div class="egg-item">
+      <div class="egg-button" onclick="startTimer(3 * 60, 'Poached Egg', this)" title="Poached Egg (3 min)">
+        <i class="fas fa-water"></i>
+      </div>
+      <span class="egg-label">Poached Egg</span>
     </div>
-    <div class="egg-button" onclick="startTimer(2 * 60, 'Fried Egg', this)" title="Fried Egg (2 min)">
-      <i class="fas fa-pan-food"></i>
+    <div class="egg-item">
+      <div class="egg-button" onclick="startTimer(2 * 60, 'Fried Egg', this)" title="Fried Egg (2 min)">
+        <i class="fas fa-pan-food"></i>
+      </div>
+      <span class="egg-label">Fried Egg</span>
     </div>
   </div>
 

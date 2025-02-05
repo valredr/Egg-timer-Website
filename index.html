@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Egg Cooking Timer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f8f8f8;
+      padding: 20px;
+    }
+    .timer-container {
+      max-width: 90%;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .egg-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .egg-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+      width: 70px;
+      height: 90px;
+      border-radius: 50% 50% 45% 45%;
+      background: linear-gradient(to top, #ffd700, #ffec8b);
+      box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out, background 0.2s ease-in-out;
+      font-size: 30px;
+      color: #8b5a2b;
+    }
+    /* Hover Effect */
+    .egg-button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(to top, #ffcc00, #fff4a3);
+    }
+    /* Touch Animation */
+    .egg-button:active {
+      transform: scale(0.9);
+      background: linear-gradient(to top, #ffb300, #ffe680);
+    }
+    /* Bounce Animation */
+    .animate {
+      animation: bounce 0.6s ease;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    #timer {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    @media (max-width: 600px) {
+      .egg-button {
+        width: 60px;
+        height: 80px;
+        font-size: 24px;
+      }
+      #timer {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="timer-container">
+  <h2>🥚 Anime Egg Cooking Timer</h2>
+  <p>Click an anime egg to start the timer</p>
+
+  <div class="egg-buttons">
+    <div class="egg-button" onclick="startTimer(6 * 60, 'Hard Boil', this)" title="Hard Boil (6 min)">
+      <i class="fas fa-egg"></i>
+    </div>
+    <div class="egg-button" onclick="startTimer(4 * 60, 'Soft Boil', this)" title="Soft Boil (4 min)">
+      <i class="fas fa-spoon"></i>
+    </div>
+    <div class="egg-button" onclick="startTimer(3 * 60, 'Poached Egg', this)" title="Poached Egg (3 min)">
+      <i class="fas fa-water"></i>
+    </div>
+    <div class="egg-button" onclick="startTimer(2 * 60, 'Fried Egg', this)" title="Fried Egg (2 min)">
+      <i class="fas fa-pan-food"></i>
+    </div>
+  </div>
+
+  <p id="status">Click an egg to start the timer.</p>
+  <p id="timer">00:00</p>
+</div>
+
+<script>
+  let countdown;
+
+  function startTimer(seconds, type, element) {
+    clearInterval(countdown);
+    const timerDisplay = document.getElementById("timer");
+    const statusDisplay = document.getElementById("status");
+    const endTime = Date.now() + seconds * 1000;
+    
+    // Add animation class to clicked egg
+    element.classList.add("animate");
+    setTimeout(() => element.classList.remove("animate"), 600);
+
+    function updateTimer() {
+      const remaining = Math.round((endTime - Date.now()) / 1000);
+      if (remaining < 0) {
+        clearInterval(countdown);
+        statusDisplay.innerText = type + " is ready! 🍳";
+        timerDisplay.innerText = "00:00";
+        return;
+      }
+      const min = Math.floor(remaining / 60);
+      const sec = remaining % 60;
+      timerDisplay.innerText = `${min}:${sec < 10 ? "0" : ""}${sec}`;
+    }
+
+    statusDisplay.innerText = "Cooking: " + type + "...";
+    updateTimer();
+    countdown = setInterval(updateTimer, 1000);
+  }
+</script>
+
+</body>
+</html>

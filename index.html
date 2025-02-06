@@ -220,11 +220,40 @@
 </div>
 
 <script>
+  let countdown; // Define countdown globally
+
   function startTimer(seconds, type, element) {
-    clearInterval(countdown);
-    document.getElementById("status").innerText = "Cooking: " + type + "...";
+    clearInterval(countdown); // Clear any existing timer
+    
+    const timerDisplay = document.getElementById("timer");
+    const statusDisplay = document.getElementById("status");
+    
+    const endTime = Date.now() + seconds * 1000;
+    displayTimeLeft(seconds);
+    statusDisplay.innerText = "Cooking: " + type + "...";
+    
     element.classList.add("animate");
     setTimeout(() => element.classList.remove("animate"), 600);
+
+    countdown = setInterval(() => {
+      const secondsLeft = Math.round((endTime - Date.now()) / 1000);
+      
+      if (secondsLeft < 0) {
+        clearInterval(countdown);
+        statusDisplay.innerText = type + " is ready! 🍳";
+        timerDisplay.innerText = "00:00";
+        return;
+      }
+      
+      displayTimeLeft(secondsLeft);
+    }, 1000);
+  }
+
+  function displayTimeLeft(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainderSeconds = seconds % 60;
+    const display = `${minutes.toString().padStart(2, '0')}:${remainderSeconds.toString().padStart(2, '0')}`;
+    document.getElementById("timer").textContent = display;
   }
 
   function toggleMessage() {
